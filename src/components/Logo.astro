@@ -1,0 +1,16 @@
+---
+const { size = 34, showWord = true } = Astro.props;
+---
+<span class="logo">
+  <svg width={size} height={size} viewBox="0 0 40 40" fill="none" aria-hidden="true">
+    <circle cx="20" cy="20" r="18.5" stroke="currentColor" stroke-width="1.5" />
+    <path d="M9 14.5l3.67-3.5 3.66 3.5 3.67-3.5 3.67 3.5 3.66-3.5L31 14.5" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+    <path d="M9 21.5l3.67-3.5 3.66 3.5 3.67-3.5 3.67 3.5 3.66-3.5L31 21.5" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+    <path d="M9 28.5l3.67-3.5 3.66 3.5 3.67-3.5 3.67 3.5 3.66-3.5L31 28.5" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+  </svg>
+  {showWord && <span class="logo-word">STUDIOCINE</span>}
+</span>
+<style>
+  .logo { display: inline-flex; align-items: center; gap: .6rem; color: var(--paper); }
+  .logo-word { font-family: var(--sans); font-weight: 300; letter-spacing: .14em; font-size: 1.05rem; }
+</style>

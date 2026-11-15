@@ -1,0 +1,92 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHeader from '../components/PageHeader.astro';
+import { site, packages } from '../data/site.js';
+const options = [...packages.map((p) => p.name), 'Line Production', 'Custom project', 'Crew application', 'Events list'];
+---
+<Base title="Contact" description="Book a studio session or request a quote from StudioCine in Santa Barbara.">
+  <PageHeader eyebrow="Contact" title="Let's make <em>something</em>." lede="Tell us about your project. We reply within two business days with next steps and a quote." />
+
+  <section class="wrap contact">
+    <form id="contact-form" class="form" data-email={site.email}>
+      <div class="two">
+        <label>Name<input name="name" required autocomplete="name" /></label>
+        <label>Email<input name="email" type="email" required autocomplete="email" /></label>
+      </div>
+      <div class="two">
+        <label>Organization<input name="org" autocomplete="organization" /></label>
+        <label>Interested in
+          <select name="package" id="package">
+            {options.map((o) => <option>{o}</option>)}
+          </select>
+        </label>
+      </div>
+      <label>Ideal date or timeline<input name="timeline" placeholder="e.g. early March" /></label>
+      <label>Tell us about the project<textarea name="message" rows="6" required></textarea></label>
+      <button class="btn btn-primary" type="submit">Send message</button>
+      <p class="hint">This opens your email app with your message filled in.</p>
+    </form>
+
+    <aside class="info">
+      <div>
+        <p class="mono">Email</p>
+        <a href={`mailto:${site.email}`}>{site.email}</a>
+      </div>
+      <div>
+        <p class="mono">Studio</p>
+        <p>{site.location}<br />By appointment</p>
+      </div>
+      <div>
+        <p class="mono">Serving</p>
+        <p>{site.serviceArea.join(', ')}</p>
+      </div>
+    </aside>
+  </section>
+</Base>
+
+<script>
+  const form = document.getElementById('contact-form');
+  const select = document.getElementById('package');
+  const wanted = new URLSearchParams(location.search).get('package');
+  if (wanted && select) {
+    const match = [...select.options].find((o) => o.text === wanted);
+    if (match) match.selected = true;
+  }
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const d = new FormData(form);
+    const subject = `${d.get('package')} inquiry from ${d.get('name')}`;
+    const body = [
+      `Name: ${d.get('name')}`,
+      `Email: ${d.get('email')}`,
+      `Organization: ${d.get('org') || '-'}`,
+      `Interested in: ${d.get('package')}`,
+      `Timeline: ${d.get('timeline') || '-'}`,
+      '',
+      d.get('message'),
+    ].join('\n');
+    location.href = `mailto:${form.dataset.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  });
+</script>
+
+<style>
+  .contact { display: grid; grid-template-columns: 1.6fr 1fr; gap: clamp(2rem, 6vw, 6rem); padding-bottom: clamp(5rem, 10vw, 8rem); }
+  .form { display: grid; gap: 1.3rem; }
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 1.3rem; }
+  label { display: grid; gap: .5rem; font-family: var(--mono); font-size: .7rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+  input, select, textarea {
+    font: inherit; font-family: var(--sans); font-size: 1rem; letter-spacing: 0; text-transform: none;
+    color: var(--paper); background: var(--ink-2); border: 1px solid var(--line); border-radius: 3px; padding: .9rem 1rem; width: 100%;
+  }
+  input:focus, select:focus, textarea:focus { outline: none; border-color: var(--tungsten); }
+  select { appearance: none; background-image: linear-gradient(45deg, transparent 50%, var(--muted) 50%), linear-gradient(135deg, var(--muted) 50%, transparent 50%);
+    background-position: calc(100% - 20px) 55%, calc(100% - 15px) 55%; background-size: 5px 5px; background-repeat: no-repeat; }
+  .form .btn { justify-self: start; margin-top: .4rem; }
+  .hint { color: var(--muted); font-size: .85rem; }
+  .info { display: grid; gap: 2rem; align-content: start; border-left: 1px solid var(--line); padding-left: clamp(1.5rem, 3vw, 2.5rem); }
+  .info .mono { color: var(--tungsten); margin-bottom: .5rem; }
+  .info a { font-family: var(--serif); font-size: 1.6rem; word-break: break-word; }
+  .info p:not(.mono) { color: var(--paper-2); }
+  @media (max-width: 800px) { .contact { grid-template-columns: 1fr; } .info { border-left: 0; padding-left: 0; border-top: 1px solid var(--line); padding-top: 2rem; } }
+  @media (max-width: 520px) { .two { grid-template-columns: 1fr; } }
+</style>

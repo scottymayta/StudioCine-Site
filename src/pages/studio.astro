@@ -1,0 +1,88 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHeader from '../components/PageHeader.astro';
+import Frame from '../components/Frame.astro';
+import CTA from '../components/CTA.astro';
+
+// Replace `src: ''` with a file path like '/images/studio-1.jpg' after adding photos to /public/images.
+const photos = [
+  { src: '', label: 'Studio wide shot', ratio: '16 / 9', tc: '00:14:22:03' },
+  { src: '', label: 'Podcast set', ratio: '4 / 5', tc: '00:15:01:19' },
+  { src: '', label: 'Lighting detail', ratio: '4 / 5', tc: '00:16:40:07' },
+];
+
+const uses = [
+  { title: 'Podcasts & interviews', text: 'Two- to four-person setups with matched cameras and individual mics.' },
+  { title: 'Brand & product video', text: 'Clean backdrops and controlled light for commercials and social content.' },
+  { title: 'Headshots & portraits', text: 'Studio strobes and backdrops for individuals and full teams.' },
+  { title: 'Music & performance', text: 'Live sessions, music videos, and electronic press kits.' },
+];
+
+const gear = [
+  ['Cameras', 'Cinema and mirrorless camera packages, multi-cam ready'],
+  ['Lighting', 'LED key, fill, and practicals with full grip'],
+  ['Audio', 'Broadcast dynamic and lavalier mics, multitrack recording'],
+  ['Backdrops', 'Seamless paper in black, white, and grey'],
+  ['Extras', 'Teleprompter, client monitor, Wi-Fi, green room'],
+];
+---
+<Base title="The Studio" description="A professional video, podcast, and photo studio in Santa Barbara, available through StudioCine productions.">
+  <PageHeader
+    eyebrow="The studio"
+    title="Built for the <em>screen</em>."
+    lede="A fully equipped production space in Santa Barbara. Every StudioCine package includes studio time, so you can focus on what you want to say."
+  />
+
+  <section class="wrap gallery">
+    {photos.map((p, i) => <div class={`g g${i}`}><Frame {...p} /></div>)}
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 class="display">What we shoot here</h2>
+        <p>One room, set up in minutes for whatever your project needs.</p>
+      </div>
+      <div class="uses">
+        {uses.map((u) => (
+          <div class="use">
+            <h3 class="display">{u.title}</h3>
+            <p>{u.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section gear-sec">
+    <div class="wrap split">
+      <div>
+        <p class="eyebrow mono">Equipment</p>
+        <h2 class="display h2">Everything's already here.</h2>
+      </div>
+      <dl class="gear">
+        {gear.map(([k, v]) => (<div><dt class="mono">{k}</dt><dd>{v}</dd></div>))}
+      </dl>
+    </div>
+  </section>
+
+  <CTA title="Book studio time" text="Studio sessions are booked through our packages. Tell us your date and what you want to make." />
+</Base>
+
+<style>
+  .gallery { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+  .g0 { grid-column: 1 / -1; }
+  @media (max-width: 640px) { .gallery { grid-template-columns: 1fr; } }
+  .uses { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0 3rem; }
+  .use { border-top: 1px solid var(--line); padding: 1.8rem 0 2.2rem; }
+  .use h3 { font-size: 2rem; margin-bottom: .5rem; }
+  .use p { color: var(--paper-2); max-width: 44ch; }
+  @media (max-width: 700px) { .uses { grid-template-columns: 1fr; } }
+  .gear-sec { background: var(--ink-2); border-block: 1px solid var(--line); }
+  .h2 { font-size: clamp(2.3rem, 5vw, 4rem); }
+  .gear { margin: 0; border-top: 1px solid var(--line); }
+  .gear div { display: grid; grid-template-columns: 9rem 1fr; gap: 1rem; padding: 1.1rem 0; border-bottom: 1px solid var(--line); }
+  .gear dt { color: var(--tungsten); padding-top: .3rem; }
+  .gear dd { margin: 0; color: var(--paper-2); }
+  @media (max-width: 480px) { .gear div { grid-template-columns: 1fr; gap: .3rem; } }
+</style>

@@ -1,0 +1,57 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHeader from '../components/PageHeader.astro';
+import Frame from '../components/Frame.astro';
+import CTA from '../components/CTA.astro';
+import { clients } from '../data/site.js';
+
+const values = [
+  { title: 'Story first', text: 'Every project starts with what you want people to feel and do.' },
+  { title: 'Cinematic craft', text: 'Film-level lighting, sound, and editing, at a scale that fits local businesses.' },
+  { title: 'Local roots', text: 'We live and work on the Central Coast, and we invest in its creative community.' },
+];
+---
+<Base title="About" description="StudioCine is a Santa Barbara production company creating cinematic video, podcasts, and photography.">
+  <PageHeader
+    eyebrow="About StudioCine"
+    title="Filmmakers who care about your <em>story</em>."
+    lede="StudioCine is a Santa Barbara production company. We make cinematic content for businesses, nonprofits, artists, and creators."
+  />
+
+  <section class="section" style="padding-top:0">
+    <div class="wrap split">
+      <Frame label="Founder portrait" ratio="4 / 5" tc="00:00:42:11" />
+      <div class="prose">
+        <p class="eyebrow mono">Our mission</p>
+        <p class="mission display">Create impactful stories that resonate with people, and build a place where filmmakers, writers, actors, and creative minds can thrive.</p>
+        <p>StudioCine was founded by a filmmaker and film educator who has produced work for clients including {clients.slice(0, -1).join(', ')}, and {clients.at(-1)}.</p>
+        <p>Today we pair that experience with a professional Santa Barbara studio and a crew of talented local creatives. The result is content that looks like cinema and works like marketing.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section values-sec">
+    <div class="wrap values">
+      {values.map((v, i) => (
+        <div class="value">
+          <span class="mono">0{i + 1}</span>
+          <h2 class="display">{v.title}</h2>
+          <p>{v.text}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <CTA />
+</Base>
+
+<style>
+  .mission { font-family: var(--serif); font-size: clamp(1.7rem, 3vw, 2.4rem) !important; line-height: 1.15; color: var(--paper) !important; }
+  .values-sec { background: var(--ink-2); border-block: 1px solid var(--line); }
+  .values { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+  .value { border-top: 1px solid var(--paper); padding-top: 1.2rem; }
+  .value .mono { color: var(--tungsten); }
+  .value h2 { font-size: 2.2rem; margin: .8rem 0 .5rem; }
+  .value p { color: var(--paper-2); }
+  @media (max-width: 760px) { .values { grid-template-columns: 1fr; } }
+</style>

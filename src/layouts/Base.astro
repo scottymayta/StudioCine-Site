@@ -1,0 +1,103 @@
+---
+import Logo from '../components/Logo.astro';
+import { site, nav } from '../data/site.js';
+import '../styles/global.css';
+
+const { title, description = 'StudioCine is a Santa Barbara production studio for video, podcasts, photography, and live events.' } = Astro.props;
+const pageTitle = title ? `${title} | StudioCine` : 'StudioCine | Video, Podcast & Photo Studio in Santa Barbara';
+const path = Astro.url.pathname;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={new URL(path, Astro.site)} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <script type="application/ld+json" set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'LocalBusiness',
+      name: 'StudioCine',
+      email: site.email,
+      url: 'https://studiocinecreative.com',
+      address: { '@type': 'PostalAddress', addressLocality: 'Santa Barbara', addressRegion: 'CA', addressCountry: 'US' },
+      areaServed: site.serviceArea,
+    })} />
+  </head>
+  <body>
+    <div class="grain" aria-hidden="true"></div>
+    <header class="site-header">
+      <div class="wrap bar">
+        <a href="/" aria-label="StudioCine home"><Logo /></a>
+        <nav class="nav" aria-label="Main">
+          {nav.map((n) => (
+            <a href={n.href} class:list={[{ active: path.startsWith(n.href) }]}>{n.label}</a>
+          ))}
+          <a href="/contact/" class="btn btn-small btn-primary">Book</a>
+        </nav>
+        <button class="menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav">
+          <span></span><span></span>
+        </button>
+      </div>
+      <nav id="mobile-nav" class="mobile-nav" aria-label="Mobile">
+        {nav.map((n) => <a href={n.href}>{n.label}</a>)}
+        <a href="/contact/" class="btn btn-primary">Book a session</a>
+      </nav>
+    </header>
+
+    <main><slot /></main>
+
+    <footer class="site-footer">
+      <div class="wrap foot-grid">
+        <div>
+          <Logo />
+          <p class="foot-tag">{site.tagline}.</p>
+          <a class="foot-mail" href={`mailto:${site.email}`}>{site.email}</a>
+        </div>
+        <div>
+          <p class="mono foot-h">Explore</p>
+          <ul>
+            {nav.map((n) => <li><a href={n.href}>{n.label}</a></li>)}
+            <li><a href="/contact/">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="mono foot-h">Follow</p>
+          <ul>
+            <li><a href={site.social.instagram} rel="noopener">Instagram</a></li>
+            <li><a href={site.social.youtube} rel="noopener">YouTube</a></li>
+            <li><a href={site.social.vimeo} rel="noopener">Vimeo</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="mono foot-h">Serving</p>
+          <p class="foot-area">{site.serviceArea.join(' · ')}</p>
+        </div>
+      </div>
+      <div class="wrap foot-base mono">
+        <span>© {new Date().getFullYear()} StudioCine, LLC</span>
+        <span>{site.location}</span>
+      </div>
+    </footer>
+
+    <script>
+      const btn = document.querySelector('.menu-btn');
+      const header = document.querySelector('.site-header');
+      btn?.addEventListener('click', () => {
+        const open = header.classList.toggle('open');
+        btn.setAttribute('aria-expanded', String(open));
+      });
+      const onScroll = () => header.classList.toggle('scrolled', window.scrollY > 20);
+      onScroll();
+      window.addEventListener('scroll', onScroll, { passive: true });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,51 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHeader from '../components/PageHeader.astro';
+import Frame from '../components/Frame.astro';
+import CTA from '../components/CTA.astro';
+---
+<Base title="Community" description="StudioCine screenings, events, and support for emerging filmmakers on the Central Coast.">
+  <PageHeader
+    eyebrow="Community"
+    title="Cinema is better <em>together</em>."
+    lede="StudioCine supports the Santa Barbara film community through screenings, events, and opportunities for emerging filmmakers."
+  />
+
+  <section class="section pillar">
+    <div class="wrap split">
+      <Frame label="Screening night" ratio="4 / 3" tc="20:00:00:00" />
+      <div>
+        <p class="eyebrow mono">Screenings & events</p>
+        <h2 class="display h2">Screenings, panels, and workshops.</h2>
+        <div class="prose" style="margin-top:1.4rem">
+          <p>We host film screenings, filmmaker Q&As, and hands-on workshops that bring audiences and artists together. Events are open to all ages and backgrounds.</p>
+        </div>
+        <a class="btn btn-ghost" href="/contact/?package=Events%20list">Get event updates</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section pillar alt">
+    <div class="wrap split">
+      <div>
+        <p class="eyebrow mono">Emerging filmmakers</p>
+        <h2 class="display h2">Join the crew.</h2>
+        <div class="prose" style="margin-top:1.4rem">
+          <p>StudioCine works with local shooters, editors, sound recordists, and producers on paid client projects. If you're building your career on the Central Coast, we want to meet you.</p>
+          <p>Share your reel and the roles you work in, and we'll reach out when a project fits.</p>
+        </div>
+        <a class="btn btn-ghost" href="/contact/?package=Crew%20application">Send your reel</a>
+      </div>
+      <Frame label="On set" ratio="4 / 3" tc="09:30:12:00" />
+    </div>
+  </section>
+
+  <CTA title="Host an event with us" text="Planning a screening, panel, or creative workshop? Let's make it happen." />
+</Base>
+
+<style>
+  .h2 { font-size: clamp(2.3rem, 5vw, 4rem); }
+  .alt { background: var(--ink-2); border-block: 1px solid var(--line); }
+  .pillar .btn { margin-top: .6rem; }
+  @media (max-width: 860px) { .alt .split > :last-child { order: -1; } }
+</style>

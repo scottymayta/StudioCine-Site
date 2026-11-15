@@ -1,0 +1,13 @@
+---
+const { eyebrow, title, lede } = Astro.props;
+---
+<header class="page-head wrap">
+  <p class="eyebrow mono"><span class="rec"></span>{eyebrow}</p>
+  <h1 class="display" set:html={title} />
+  {lede && <p class="lede">{lede}</p>}
+</header>
+<style>
+  .page-head { padding: clamp(7rem, 14vw, 10rem) 0 clamp(2.5rem, 6vw, 4rem); }
+  .page-head h1 { font-size: clamp(2.8rem, 8vw, 6.2rem); max-width: 14ch; }
+  .lede { max-width: 54ch; margin-top: 1.5rem; font-size: clamp(1.05rem, 1.6vw, 1.25rem); color: var(--paper-2); }
+</style>

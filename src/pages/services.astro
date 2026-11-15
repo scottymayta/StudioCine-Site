@@ -1,0 +1,82 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHeader from '../components/PageHeader.astro';
+import CTA from '../components/CTA.astro';
+import { packages, addons } from '../data/site.js';
+---
+<Base title="Services & Packages" description="Video production, podcast recording, photography, and livestream packages from StudioCine in Santa Barbara.">
+  <PageHeader
+    eyebrow="Services & packages"
+    title="Clear packages. <em>Cinematic</em> results."
+    lede="Every package includes studio time, crew, lighting, sound, and editing. No surprise facility fees and no hourly guesswork."
+  />
+
+  <section class="wrap pkg-grid">
+    {packages.map((p) => (
+      <article id={p.id} class:list={['pkg', { featured: p.featured }]}>
+        <div class="pkg-top">
+          <span class="mono kind">{p.kind}</span>
+          {p.featured && <span class="tag">Most popular</span>}
+        </div>
+        <h2 class="display">{p.name}</h2>
+        <p class="summary">{p.summary}</p>
+        <p class="price"><span class="display">{p.price}</span> <span class="mono">{p.unit}</span></p>
+        <ul class="check-list">{p.includes.map((i) => <li>{i}</li>)}</ul>
+        {p.note && <p class="mono note">{p.note}</p>}
+        <a class:list={['btn', p.featured ? 'btn-primary' : 'btn-ghost']} href={`/contact/?package=${encodeURIComponent(p.name)}`}>Request this package</a>
+      </article>
+    ))}
+  </section>
+
+  <section class="section">
+    <div class="wrap split addon-wrap">
+      <div>
+        <p class="eyebrow mono">Add-ons</p>
+        <h2 class="display h2">Build it out.</h2>
+        <p class="sub">Add any of these to a package. We'll include them in your quote.</p>
+      </div>
+      <ul class="addons">{addons.map((a) => <li>{a}</li>)}</ul>
+    </div>
+  </section>
+
+  <section class="section crew">
+    <div class="wrap split">
+      <div>
+        <p class="eyebrow mono">For productions</p>
+        <h2 class="display h2">Line production & crew.</h2>
+      </div>
+      <div class="prose">
+        <p>Shooting a commercial, short, or feature on the Central Coast? StudioCine provides local producers, camera and lighting crew, and studio space for visiting productions.</p>
+        <a class="btn btn-ghost" href="/contact/?package=Line%20Production">Request a crew quote</a>
+      </div>
+    </div>
+  </section>
+
+  <CTA title="Not sure which fits?" text="Tell us what you're trying to make. We'll recommend the right package, or build a custom one." />
+</Base>
+
+<style>
+  .pkg-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; padding-bottom: 2rem; }
+  .pkg { display: flex; flex-direction: column; border: 1px solid var(--line); border-radius: 4px; padding: 2rem 1.8rem; background: var(--ink-2); scroll-margin-top: 100px; }
+  .pkg.featured { border-color: rgba(232,163,61,.5); background: linear-gradient(160deg, rgba(232,163,61,.10), var(--ink-2) 55%); }
+  .pkg-top { display: flex; justify-content: space-between; align-items: center; min-height: 28px; }
+  .kind { color: var(--tungsten); }
+  .pkg h2 { font-size: 2.4rem; margin: 1.4rem 0 .6rem; }
+  .summary { color: var(--paper-2); font-size: .97rem; min-height: 3.2em; }
+  .price { display: flex; align-items: baseline; gap: .5rem; margin: 1.6rem 0 1.4rem; padding-top: 1.4rem; border-top: 1px solid var(--line); }
+  .price .display { font-size: 3rem; line-height: 1; }
+  .price .mono { color: var(--muted); }
+  .pkg .check-list { flex: 1; }
+  .note { color: var(--muted); margin: .4rem 0 0; }
+  .pkg .btn { margin-top: 1.6rem; align-self: flex-start; }
+  @media (max-width: 1000px) { .pkg-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 640px) { .pkg-grid { grid-template-columns: 1fr; } .summary { min-height: 0; } }
+
+  .h2 { font-size: clamp(2.3rem, 5vw, 4rem); }
+  .sub { color: var(--paper-2); margin-top: 1rem; }
+  .addon-wrap { align-items: start; }
+  .addons { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--line); }
+  .addons li { padding: 1rem 0; border-bottom: 1px solid var(--line); font-family: var(--serif); font-size: 1.45rem; }
+  .crew { background: var(--ink-2); border-top: 1px solid var(--line); }
+  .crew .btn { margin-top: .6rem; }
+</style>
