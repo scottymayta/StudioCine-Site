@@ -78,14 +78,14 @@ const options = [...packages.map((p) => p.name), 'Line Production', 'Custom proj
     font: inherit; font-family: var(--sans); font-size: 1rem; letter-spacing: 0; text-transform: none;
     color: var(--paper); background: var(--ink-2); border: 1px solid var(--line); border-radius: 3px; padding: .9rem 1rem; width: 100%;
   }
-  input:focus, select:focus, textarea:focus { outline: none; border-color: var(--tungsten); }
+  input:focus, select:focus, textarea:focus { outline: none; border-color: var(--lime); }
   select { appearance: none; background-image: linear-gradient(45deg, transparent 50%, var(--muted) 50%), linear-gradient(135deg, var(--muted) 50%, transparent 50%);
     background-position: calc(100% - 20px) 55%, calc(100% - 15px) 55%; background-size: 5px 5px; background-repeat: no-repeat; }
   .form .btn { justify-self: start; margin-top: .4rem; }
   .hint { color: var(--muted); font-size: .85rem; }
   .info { display: grid; gap: 2rem; align-content: start; border-left: 1px solid var(--line); padding-left: clamp(1.5rem, 3vw, 2.5rem); }
-  .info .mono { color: var(--tungsten); margin-bottom: .5rem; }
-  .info a { font-family: var(--serif); font-size: 1.6rem; word-break: break-word; }
+  .info .mono { color: var(--lime); margin-bottom: .5rem; }
+  .info a { font-family: var(--wide); font-size: 1.2rem; font-weight: 500; word-break: break-word; }
   .info p:not(.mono) { color: var(--paper-2); }
   @media (max-width: 800px) { .contact { grid-template-columns: 1fr; } .info { border-left: 0; padding-left: 0; border-top: 1px solid var(--line); padding-top: 2rem; } }
   @media (max-width: 520px) { .two { grid-template-columns: 1fr; } }

@@ -1,6 +1,8 @@
 ---
 import Logo from '../components/Logo.astro';
 import { site, nav } from '../data/site.js';
+import '@fontsource-variable/archivo/wdth.css';
+import '@fontsource-variable/quicksand';
 import '../styles/global.css';
 
 const { title, description = 'StudioCine is a Santa Barbara production studio for video, podcasts, photography, and live events.' } = Astro.props;
@@ -19,9 +21,6 @@ const path = Astro.url.pathname;
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
     <script type="application/ld+json" set:html={JSON.stringify({
       '@context': 'https://schema.org',
       '@type': 'LocalBusiness',

@@ -30,7 +30,7 @@ const values = [
     </div>
   </section>
 
-  <section class="section values-sec">
+  <section class="section values-sec wave-bg">
     <div class="wrap values">
       {values.map((v, i) => (
         <div class="value">
@@ -46,12 +46,12 @@ const values = [
 </Base>
 
 <style>
-  .mission { font-family: var(--serif); font-size: clamp(1.7rem, 3vw, 2.4rem) !important; line-height: 1.15; color: var(--paper) !important; }
-  .values-sec { background: var(--ink-2); border-block: 1px solid var(--line); }
+  .mission { font-family: var(--wide); font-size: clamp(1.35rem, 2.2vw, 1.8rem) !important; line-height: 1.35; font-weight: 300; letter-spacing: .02em; color: var(--paper) !important; }
+  .values-sec { border-block: 1px solid var(--line); }
   .values { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
   .value { border-top: 1px solid var(--paper); padding-top: 1.2rem; }
-  .value .mono { color: var(--tungsten); }
-  .value h2 { font-size: 2.2rem; margin: .8rem 0 .5rem; }
+  .value .mono { color: var(--lime); }
+  .value h2 { font-size: 1.35rem; margin: .8rem 0 .5rem; }
   .value p { color: var(--paper-2); }
   @media (max-width: 760px) { .values { grid-template-columns: 1fr; } }
 </style>
